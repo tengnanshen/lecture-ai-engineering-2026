@@ -10,6 +10,16 @@ import os
 DEFAULT_MODEL = "gemini-3.5-flash-lite"
 MODEL = os.getenv("AIE_MODEL", DEFAULT_MODEL)
 
+# 環境変数 AIE_TEMPERATURE が未設定なら、Gemini API の既定値を使う。
+TEMPERATURE: float | None = None
+if (temperature_value := os.getenv("AIE_TEMPERATURE")) is not None:
+    try:
+        TEMPERATURE = float(temperature_value)
+    except ValueError:
+        raise SystemExit("AIE_TEMPERATURE は 0 から 2 の数値で指定してください。")
+    if not 0 <= TEMPERATURE <= 2:
+        raise SystemExit("AIE_TEMPERATURE は 0 から 2 の範囲で指定してください。")
+
 
 def api_error_message(status: int, detail: str = "") -> str:
     """HTTPステータスコードを、受講生向けの日本語の説明にする（ask.py と agent.py で共用）。"""

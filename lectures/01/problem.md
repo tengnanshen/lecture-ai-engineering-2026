@@ -103,3 +103,4 @@ https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash?hl=ja
 第1回の宿題においては、任意にモデルを変えて実施していただければ問題ありません。
 
 temperature を変えるには、`generate_content` の `config` 引数を調べてみましょう。
+ 
